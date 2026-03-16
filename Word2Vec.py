@@ -72,25 +72,25 @@ class Word2Vec:
         v_in = self.v_in[center] / (1 - b2 ** self.t)
         self.w_in[center] -= learning_rate * m_in / (np.sqrt(v_in) + e)
 
-    def recall_k(self, words, recall_k):
+    def recall_k(self, word_indices, recall_k):
         """
         recall the closest k words of which the vector representation is the closest to
         words[1]-words[0]+words[2]'s vector representation, calculated based on cosine similarity
-        :param words: list of length 3 with words in the vocabulary that are part of the vocabulary
-                      and make up an analogy pair, missing the 4th word, which the model has to retrieve
+        :param word_indices: list of length 3 with indices of words in the vocabulary and make up
+                             an analogy pair, missing the 4th word, which the model has to retrieve
         :param recall_k: number of words to recall
         :return: list of k most likely missing words in the pair of analogy pairs according to the model
         """
         vectors = self.w_in
         norms = np.linalg.norm(vectors, axis=1, keepdims=True)
         normalized = vectors / norms
-        indices = [np.where(self.vocab == w)[0][0] for w in words]
+        # indices = [np.where(self.vocab == w)[0][0] for w in words]
         result = []
-        target = normalized[indices[1]] - normalized[indices[0]] + normalized[indices[2]]
+        target = normalized[word_indices[1]] - normalized[word_indices[0]] + normalized[word_indices[2]]
         similarities = normalized @ target
-        similarities[indices[0]] = -np.inf
-        similarities[indices[1]] = -np.inf
-        similarities[indices[2]] = -np.inf
+        similarities[word_indices[0]] = -np.inf
+        similarities[word_indices[1]] = -np.inf
+        similarities[word_indices[2]] = -np.inf
         for i in range(recall_k):
             best_index = np.argmax(similarities)
             result.append(self.vocab[best_index])
