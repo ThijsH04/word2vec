@@ -20,10 +20,10 @@ def calculate_loss(probs_out, labels):
 
 def parse_analogies(analogies_data, word_to_index):
     """
-
-    :param analogies_data:
-    :param word_to_index:
-    :return:
+    parse the analogy input data, transforming it into index form and removing analogies with out-of-vocabulary words
+    :param analogies_data: list of analogy input data
+    :param word_to_index: mapping from word to index
+    :return: list of analogy combination made up of only words in the vocabulary
     """
     analogies = []
     for unparsed_analogy in analogies_data:
@@ -44,6 +44,17 @@ def parse_analogies(analogies_data, word_to_index):
 
 
 def parse_sentences(sentences, minimum_freq=3, t=10e-4, seed=42):
+    """
+    Parse list of sentences into through low frequency filtering and high frequency subsampling.
+    Then the sentences are mapped to index form. Also provides vocab and its word_to_index, as well as the
+    final word frequencies
+    :param sentences: list of strings of sentences
+    :param minimum_freq: int for the minimum number of occurrences before word is filtered out
+    :param t: float hyperparameter used to subsample frequent words
+    :param seed: used to make the subsampling of frequent words reproducible
+    :return: list of parsed sentences, list of the vocabulary, the mapping of words to their index in the vocabulary list
+             and the frequency of all the words in the parsed sentences.
+    """
     np.random.seed(seed)
     pre_filter_sentences = []
     word_count = {}
@@ -60,7 +71,7 @@ def parse_sentences(sentences, minimum_freq=3, t=10e-4, seed=42):
     filtered_sentences = []
     word_to_index = {}
     vocab = []
-    token_counts = []  # track counts in vocab order for negative sampling
+    final_word_counts = []
     for sentence in pre_filter_sentences:
         new_sentence = []
         for word in sentence:
@@ -71,11 +82,11 @@ def parse_sentences(sentences, minimum_freq=3, t=10e-4, seed=42):
                     if word not in word_to_index:
                         word_to_index[word] = len(word_to_index)
                         vocab.append(word)
-                        token_counts.append(word_count[word])
+                        final_word_counts.append(word_count[word])
                     new_sentence.append(word_to_index[word])
         if len(new_sentence) > 0:
             filtered_sentences.append(new_sentence)
-    return filtered_sentences, vocab, word_to_index, np.array(token_counts)
+    return filtered_sentences, vocab, word_to_index, np.array(final_word_counts)
 
 def parse_sentence(sentence):
     """
@@ -134,4 +145,4 @@ def train_loop(data_set, window, k, neg_probs, do_train, number_of_words, lr, wo
     if do_train:
         analogy_scores = word2vec.calculate_analogy_score(parsed_analogies,recall_k)
         print("analogy score:", analogy_scores)
-    return (total_loss,analogy_scores)
+    return (total_loss/count,analogy_scores)

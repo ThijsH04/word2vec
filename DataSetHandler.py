@@ -7,7 +7,7 @@ class DataSetHandler:
         It also ensures that the training set is randomised each epoch
         :param sentence_data: numpy array of all sentences with words in index form
         :param train_percentage: percentage of dataset that is used for training
-        :param seed: seed to ensure reproducability of train and test set splitting
+        :param seed: seed to ensure reproducibility of train and test set splitting
         """
         np.random.seed(seed)
         np.random.shuffle(sentence_data)
