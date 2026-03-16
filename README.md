@@ -27,7 +27,7 @@ There are also optional parameters that can be changed.
 - `--recall_k` K for analogy recall@K (default = 5)
 
 ### Loading weights and testing analogies
-To see that the model outputted valid vector representations, the weights can also be downloaded above and AnalyseData.py can be run. The weights provided are of dimension 300 and trained on part of the Google 1 billion words dataset. Eventually the average score of the analogies came to ~19%, using the same dataset as in the original Word2Vector paper. 
+To see that the model outputted valid vector representations, the weights can also be downloaded above and `AnalyseData.py` can be run. The weights provided are of dimension 300 and trained on part of the Google 1 billion words dataset. Eventually the average score of the analogies came to ~19%, using the same dataset as in the original Word2Vector paper. 
 
 To test your own analogy combinations, you can run the code and will be prompted with giving 3 words and then the number of words to retrieve.
 Given for instance word1 = "jump", word2 = "jumped", word3 = "fall", the model should aim to retrieve "fell".
