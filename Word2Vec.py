@@ -137,12 +137,6 @@ class Word2Vec:
         np.savetxt(prefix+"w_out.csv", self.w_out, delimiter=",")
 
     def load_from_file(self, vocab_location, in_location, out_location):
-        """
-        Loads weights of model
-        :param vocab_location: string of the location of vocabulary file
-        :param in_location: string of the location of the in weights
-        :param out_location: string of the location of the out weights
-        """
         self.vocab = np.loadtxt(vocab_location, delimiter=",", dtype=str, encoding="utf-8")
         self.w_in = np.loadtxt(in_location, delimiter=",")
         self.w_out = np.loadtxt(out_location, delimiter=",")
