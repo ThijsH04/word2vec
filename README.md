@@ -3,7 +3,7 @@ JetBrains internship application
 
 ## Data
 Weights, training data, losses and scores can be found in [https://drive.google.com/drive/folders/1yFB9ciApYhACdVesXQeOKaS_EJY-t2n6?usp=drive_link](https://drive.google.com/drive/folders/1yFB9ciApYhACdVesXQeOKaS_EJY-t2n6?usp=sharing).
-There are 2 zip files, small_data_collection contains 2 examples of in and out weights (of training epoch 0 and 10), the training dataset, the analogies dataset and the vocabulary. 
+There are 2 zip files, small_data_collection contains 2 examples of in and out weights (of training epoch 1 and 11), the training dataset, the analogies dataset and the vocabulary. 
 
 big_data_collection contains all in and out weights, as well as the training and test losses, the analogy (recall) scores, the training dataset, the analogies dataset and the vocabulary.
 
