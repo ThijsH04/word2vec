@@ -55,9 +55,9 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--input_file", type=str, help="Input file")
-    parser.add_argument("--analogies_file", type=str, help="Analogy file")
-    parser.add_argument("--output_directory", type=str, help="Output directory")
+    parser.add_argument("--input_file", type=str, help="Input file", required=True)
+    parser.add_argument("--analogies_file", type=str, help="Analogy file", required=True)
+    parser.add_argument("--output_directory", type=str, help="Output directory", required=True)
 
     parser.add_argument("--epochs", type=int, default=20, help="Number of training epochs")
     parser.add_argument("--k", type=int, default=10, help="Number of negative samples per positive")

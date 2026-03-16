@@ -84,7 +84,6 @@ class Word2Vec:
         vectors = self.w_in
         norms = np.linalg.norm(vectors, axis=1, keepdims=True)
         normalized = vectors / norms
-        # indices = [np.where(self.vocab == w)[0][0] for w in words]
         result = []
         target = normalized[word_indices[1]] - normalized[word_indices[0]] + normalized[word_indices[2]]
         similarities = normalized @ target

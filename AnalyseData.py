@@ -6,6 +6,10 @@ from Word2Vec import Word2Vec
 
 
 def main(args):
+    """
+    Overarching function for the data analysis
+    :param args: file locations
+    """
     model = Word2Vec(np.array(["dummy"]),10)
     model.load_from_file(args.vocab_location, args.input_weights, args.output_weights)
     training_losses = np.loadtxt(args.training_loss, delimiter=",").flatten() if args.training_loss else None
@@ -22,6 +26,11 @@ def main(args):
 
 
 def analogy_tests(model):
+    """
+    Allow the user to input 3 words of an analogy and let the system retrieve k possibilities for the missing word
+    This functions keeps looping
+    :param model: Word2Vec model with loaded weights
+    """
     while True:
         inputted_words = []
         word_indices = []
@@ -46,6 +55,11 @@ def analogy_tests(model):
 
 
 def plot_losses(test_losses,training_losses):
+    """
+    Plot the losses
+    :param test_losses: np array of test losses
+    :param training_losses: np array of training losses
+    """
     epochs = range(1, training_losses.shape[0] + 1)
     plt.figure(figsize=(10, 5))
     plt.title("Training and Test Loss")
@@ -60,6 +74,10 @@ def plot_losses(test_losses,training_losses):
     plt.show()
 
 def plot_recalls(recalls):
+    """
+    Plot the recalls
+    :param recalls: numpy array of recalls
+    """
     plt.figure(figsize=(10, 5))
     plt.title("Average Recall@k")
     plt.xlabel("Epoch")
@@ -78,11 +96,11 @@ def plot_recalls(recalls):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--vocab_location")
-    parser.add_argument("--input_weights")
-    parser.add_argument("--output_weights")
-    parser.add_argument("--training_loss")
-    parser.add_argument("--test_loss")
-    parser.add_argument("--analogy_scores")
+    parser.add_argument("--vocab_location", help="location of the vocabulary file", required=True)
+    parser.add_argument("--input_weights", help="location of the input weights file", required=True)
+    parser.add_argument("--output_weights", help="location of the output weights file", required=True)
+    parser.add_argument("--training_loss", help="location of the training loss file")
+    parser.add_argument("--test_loss", help="location of the test loss file")
+    parser.add_argument("--analogy_scores", help="location of the analogy scores file")
     args = parser.parse_args()
     main(args)

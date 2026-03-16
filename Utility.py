@@ -145,4 +145,4 @@ def train_loop(data_set, window, k, neg_probs, do_train, number_of_words, lr, wo
     if do_train:
         analogy_scores = word2vec.calculate_analogy_score(parsed_analogies,recall_k)
         print("analogy score:", analogy_scores)
-    return (total_loss/count,analogy_scores)
+    return total_loss / count,analogy_scores
